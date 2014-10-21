@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import org.deri.tarql.CSVOptions;
 import org.deri.tarql.TarqlParser;
 import org.deri.tarql.TarqlQuery;
 import org.deri.tarql.TarqlQueryExecution;
@@ -54,9 +55,11 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		TarqlQuery tq = new TarqlParser(new StringReader(c.tarqlQuery), null)
 				.getResult();
 		InputStream in = new URL(c.csvFileLocation).openStream();
+		CSVOptions options = new CSVOptions();
+		
 		//InputStream in = this.getClass().getResourceAsStream(c.csvFileLocation);
-		TarqlQueryExecution ex = TarqlQueryExecutionFactory.create(in, tq);
-		Iterator<Triple> triples = ex.streamExec();
+		TarqlQueryExecution ex = TarqlQueryExecutionFactory.create(tq, options);
+		Iterator<Triple> triples = ex.execTriples();
 		ValueFactory factory = new ValueFactoryImpl();
 		while (triples.hasNext()) {
 			Triple t = triples.next();

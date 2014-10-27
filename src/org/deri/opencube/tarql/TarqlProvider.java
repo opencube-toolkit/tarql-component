@@ -13,15 +13,16 @@ import org.deri.tarql.TarqlQuery;
 import org.deri.tarql.TarqlQueryExecution;
 import org.deri.tarql.TarqlQueryExecutionFactory;
 import org.openrdf.model.Statement;
-import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
 import org.openrdf.model.impl.ValueFactoryImpl;
 
+import com.fluidops.iwb.datasource.ui.CharsetSelectValueFactory;
 import com.fluidops.iwb.model.ParameterConfigDoc;
 import com.fluidops.iwb.model.ParameterConfigDoc.Type;
 import com.fluidops.iwb.provider.AbstractFlexProvider;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
+
 
 public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 	private static final long serialVersionUID = 1L;
@@ -43,8 +44,15 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 
 		@ParameterConfigDoc(desc = "URL of the input CSV file", type=Type.FILEEDITOR)
 		public String csvFileLocation;
+
 		
-		
+		@ParameterConfigDoc(
+				desc = "Defines the character set name of the files being read, such as UTF-16,UTF-8 or US-ASCII",
+				required = false,
+				type = Type.DROPDOWN,
+				selectValuesFactory = CharsetSelectValueFactory.class)
+		public String charset;
+
 	}
 
 	@Override
@@ -54,6 +62,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 
 		TarqlQuery tq = new TarqlParser(new StringReader(c.tarqlQuery), null)
 				.getResult();
+
 		InputStream in = new URL(c.csvFileLocation).openStream();
 		CSVOptions options = new CSVOptions();
 		

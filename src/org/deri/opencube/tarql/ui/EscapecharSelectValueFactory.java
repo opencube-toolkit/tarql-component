@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-public class EncodingSelectValueFactory implements SelectValuesFactory {
+public class EscapecharSelectValueFactory implements SelectValuesFactory {
 	public List<String> getSelectValues() {
 		List<String> choices = Lists.newArrayList();
 

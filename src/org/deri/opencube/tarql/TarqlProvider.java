@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import org.deri.opencube.tarql.ui.EncodingSelectValueFactory;
 import org.deri.tarql.CSVOptions;
 import org.deri.tarql.TarqlParser;
 import org.deri.tarql.TarqlQuery;
@@ -16,7 +17,6 @@ import org.openrdf.model.Statement;
 import org.openrdf.model.ValueFactory;
 import org.openrdf.model.impl.ValueFactoryImpl;
 
-import com.fluidops.iwb.datasource.ui.CharsetSelectValueFactory;
 import com.fluidops.iwb.model.ParameterConfigDoc;
 import com.fluidops.iwb.model.ParameterConfigDoc.Type;
 import com.fluidops.iwb.provider.AbstractFlexProvider;
@@ -30,6 +30,32 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 	public static class Config implements Serializable {
 
 		private static final long serialVersionUID = 1L;
+
+		@ParameterConfigDoc(desc = "URL of the input CSV file", type=Type.FILEEDITOR)
+		public String csvFileLocation;
+
+		
+	    //  -d   --delimiter       Delimiting character of the CSV file
+
+		//  -e   --encoding        Override CSV file encoding (e.g., utf-8 or latin-1)
+		
+		//   -p   --escapechar      Character used to escape quotes in the CSV file
+		
+		// --quotechar            Quote character used in the CSV file
+		
+		// 	      -H   --no-header-row   CSV file has no header row; use variable names ?a, ?b, ...
+	    //  --header-row           CSV file's first row is a header with variable names (default)
+		
+		//  -t   --tabs            Specifies that the input is tab-separagted (TSV), overriding -d
+		
+	    //  --test                 Show CONSTRUCT template and first rows only (for query debugging)
+
+		@ParameterConfigDoc(
+				desc = "Defines the character set name of the files being read, such as UTF-16,UTF-8 or US-ASCII",
+				required = false,
+				type = Type.DROPDOWN,
+				selectValuesFactory = EncodingSelectValueFactory.class)
+		public String encoding;
 		
 		private static final String SAMPLE_TARQL = "PREFIX qb:<http://purl.org/linked-data/cube#> \n" +
 				"PREFIX ex: <http://example.com/> \n" +
@@ -40,18 +66,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 				"}";
 
 		@ParameterConfigDoc(desc = "Tarql Query", required = true, type=Type.SPARQLEDITOR, defaultContent=SAMPLE_TARQL)
-		public String tarqlQuery;
-
-		@ParameterConfigDoc(desc = "URL of the input CSV file", type=Type.FILEEDITOR)
-		public String csvFileLocation;
-
-		
-		@ParameterConfigDoc(
-				desc = "Defines the character set name of the files being read, such as UTF-16,UTF-8 or US-ASCII",
-				required = false,
-				type = Type.DROPDOWN,
-				selectValuesFactory = CharsetSelectValueFactory.class)
-		public String charset;
+		public String tarqlQuery;		
 
 	}
 

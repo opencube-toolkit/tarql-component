@@ -10,6 +10,9 @@ public class DelimiterSelectValueFactory implements SelectValuesFactory {
 		List<String> choices = Lists.newArrayList();
 
 		choices.add("");
+		choices.add(",");
+		choices.add(";");
+		choices.add("tab");
 
 		return choices;
 	}

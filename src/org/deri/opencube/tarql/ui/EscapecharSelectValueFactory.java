@@ -10,13 +10,6 @@ public class EscapecharSelectValueFactory implements SelectValuesFactory {
 		List<String> choices = Lists.newArrayList();
 
 		choices.add("");
-		choices.add("UTF-8");
-		choices.add("UTF-16");
-		choices.add("UTF-16LE");
-		choices.add("UTF-16BE");
-		choices.add("ISO-8859-1");
-		choices.add("ISO-8859-2");
-		choices.add("US-ASCII");
 
 		return choices;
 	}

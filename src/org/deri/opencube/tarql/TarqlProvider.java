@@ -1,11 +1,7 @@
 package org.deri.opencube.tarql;
 
-import static com.fluidops.iwb.util.Config.getConfig;
-
-import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
@@ -100,15 +96,15 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 
 		Config c = config;
 
+		// TODO populate form values
+		CSVOptions options = new CSVOptions();
+		
 		TarqlQuery tq = new TarqlParser(new StringReader(c.tarqlQuery), null)
 				.getResult();
 
-		InputStream in = new URL(c.csvFileLocation).openStream();
-		CSVOptions options = new CSVOptions();
-		
-		//InputStream in = this.getClass().getResourceAsStream(c.csvFileLocation);
-		TarqlQueryExecution ex = TarqlQueryExecutionFactory.create(tq, options);
+		TarqlQueryExecution ex = TarqlQueryExecutionFactory.create(tq, c.csvFileLocation, options);
 		Iterator<Triple> triples = ex.execTriples();
+
 		ValueFactory factory = new ValueFactoryImpl();
 		while (triples.hasNext()) {
 			Triple t = triples.next();
@@ -156,7 +152,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 			}
 			res.add(st);
 		}
-		in.close();
+
 	}
 
 	@Override

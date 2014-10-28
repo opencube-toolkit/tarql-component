@@ -2,8 +2,6 @@ package org.deri.opencube.tarql;
 
 import static com.fluidops.iwb.util.Config.getConfig;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringReader;
@@ -14,6 +12,7 @@ import java.util.List;
 import org.deri.opencube.tarql.ui.DelimiterSelectValueFactory;
 import org.deri.opencube.tarql.ui.EncodingSelectValueFactory;
 import org.deri.opencube.tarql.ui.EscapecharSelectValueFactory;
+import org.deri.opencube.tarql.ui.HeaderrowSelectValueFactory;
 import org.deri.opencube.tarql.ui.QuotecharSelectValueFactory;
 import org.deri.tarql.CSVOptions;
 import org.deri.tarql.TarqlParser;
@@ -68,28 +67,32 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 				required = false,
 				type = Type.DROPDOWN,
 				selectValuesFactory = EscapecharSelectValueFactory.class)
-		public String escapechar;
+		public String escapeChar;
 
 		@ParameterConfigDoc(
 				desc = "Quote character used in the CSV file",
 				required = false,
 				type = Type.DROPDOWN,
 				selectValuesFactory = QuotecharSelectValueFactory.class)
-		public String quotechar;		
+		public String quoteChar;		
 
-		
-		// 	      -H   --no-header-row   CSV file has no header row; use variable names ?a, ?b, ...
-	    //  --header-row           CSV file's first row is a header with variable names (default)
-		
-		//  -t   --tabs            Specifies that the input is tab-separagted (TSV), overriding -d
-		
-	    //  --test                 Show CONSTRUCT template and first rows only (for query debugging)
+		@ParameterConfigDoc(
+				desc = "CSV file's first row is a header with variable names",
+				required = false,
+				type = Type.DROPDOWN,
+				selectValuesFactory = HeaderrowSelectValueFactory.class)
+		public String headerRow;	
 
-
+//		@ParameterConfigDoc(
+//				desc = " Show CONSTRUCT template and first rows only (for query debugging)",
+//				required = false,
+//				defaultValue = "no",
+//				type = Type.CHECKBOX)
+//		public String test;
+		
 		@ParameterConfigDoc(desc = "Tarql Query", required = true, type=Type.SPARQLEDITOR, defaultContent=SAMPLE_TARQL)
 		public String tarqlQuery;
-       
- 
+
 	}
 
 	@Override

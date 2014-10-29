@@ -111,7 +111,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		}
 
 		// Encoding
-		if (StringUtils.isNotBlank(c.encoding)) {
+		if (StringUtils.isNotBlank(c.encoding) && ( ! c.encoding.equals("Autodetect"))) {
 			options.setEncoding(c.encoding);
 		}
 
@@ -126,7 +126,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		}
 
 		// Header Row (default TRUE)
-		if (c.headerRow.equals("no")) {
+		if (StringUtils.isNotBlank(c.headerRow) && c.headerRow.equals("no")) {
 			options.setColumnNamesInFirstRow(false);
 		}
 

@@ -10,6 +10,9 @@ public class EscapecharSelectValueFactory implements SelectValuesFactory {
 		List<String> choices = Lists.newArrayList();
 
 		choices.add("");
+		choices.add("\'");
+		choices.add("\"");
+		choices.add("\\");
 
 		return choices;
 	}

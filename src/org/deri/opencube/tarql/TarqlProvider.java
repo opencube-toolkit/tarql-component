@@ -103,8 +103,8 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 
 		// Delimiter
 		if (StringUtils.isNotBlank(c.delimiter)) {
-			if (c.delimiter == "tab"){
-				options.setDelimiter( '\u000B' );
+			if (c.delimiter.equals("tab")){
+				options.setDelimiter( '\t' );
 			} else {
 				options.setDelimiter(c.delimiter.charAt(0));
 			}
@@ -142,6 +142,8 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 			Node n = t.getObject();
 			Statement st;
 
+			System.out.println ( "DEBUG: Triple: " + t );
+			
 			if (t.getSubject().isURI()) {
 				if (n.isLiteral()) {
 					// TODO Literals are treated as strings (no datatypes

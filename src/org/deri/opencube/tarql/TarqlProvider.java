@@ -84,10 +84,10 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 //		@ParameterConfigDoc(
 //				desc = " Show CONSTRUCT template and first rows only (for query debugging)",
 //				required = false,
-//				defaultValue = "no",
-//				type = Type.CHECKBOX)
+//				type = Type.CHECKBOX
+//		)
 //		public String test;
-		
+
 		@ParameterConfigDoc(desc = "Tarql Query", required = true, type=Type.SPARQLEDITOR, defaultContent=SAMPLE_TARQL)
 		public String tarqlQuery;
 
@@ -129,7 +129,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		if (c.headerRow.equals("no")) {
 			options.setColumnNamesInFirstRow(false);
 		}
-		
+
 		TarqlQuery tq = new TarqlParser(new StringReader(c.tarqlQuery), null)
 				.getResult();
 
@@ -141,6 +141,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 			Triple t = triples.next();
 			Node n = t.getObject();
 			Statement st;
+
 			if (t.getSubject().isURI()) {
 				if (n.isLiteral()) {
 					// TODO Literals are treated as strings (no datatypes

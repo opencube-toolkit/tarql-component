@@ -5,6 +5,7 @@ import java.io.StringReader;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.deri.opencube.tarql.ui.DelimiterSelectValueFactory;
 import org.deri.opencube.tarql.ui.EncodingSelectValueFactory;
 import org.deri.opencube.tarql.ui.EscapecharSelectValueFactory;
@@ -78,7 +79,8 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 				type = Type.DROPDOWN,
 				selectValuesFactory = HeaderrowSelectValueFactory.class)
 		public String headerRow;	
-
+		StringUtils su = new StringUtils();
+		
 //		@ParameterConfigDoc(
 //				desc = " Show CONSTRUCT template and first rows only (for query debugging)",
 //				required = false,
@@ -96,8 +98,37 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 
 		Config c = config;
 
-		// TODO populate form values
+		// Populating the options with form values
 		CSVOptions options = new CSVOptions();
+
+		// Delimiter
+		if (StringUtils.isNotBlank(c.delimiter)) {
+			if (c.delimiter == "tab"){
+				options.setDelimiter( '\u000B' );
+			} else {
+				options.setDelimiter(c.delimiter.charAt(0));
+			}
+		}
+
+		// Encoding
+		if (StringUtils.isNotBlank(c.encoding)) {
+			options.setEncoding(c.encoding);
+		}
+
+		// Escape Char
+		if (StringUtils.isNotBlank(c.escapeChar)) {
+			options.setEscapeChar(c.escapeChar.charAt(0));
+		}
+
+		// Quote Char
+		if (StringUtils.isNotBlank(c.quoteChar)) {
+			options.setQuoteChar(c.quoteChar.charAt(0));
+		}
+
+		// Header Row (default TRUE)
+		if (c.headerRow.equals("no")) {
+			options.setColumnNamesInFirstRow(false);
+		}
 		
 		TarqlQuery tq = new TarqlParser(new StringReader(c.tarqlQuery), null)
 				.getResult();

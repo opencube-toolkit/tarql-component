@@ -9,7 +9,6 @@ public class HeaderrowSelectValueFactory implements SelectValuesFactory {
 	public List<String> getSelectValues() {
 		List<String> choices = Lists.newArrayList();
 
-		choices.add("");
 		choices.add("yes");
 		choices.add("no");
 

@@ -9,9 +9,8 @@ public class QuotecharSelectValueFactory implements SelectValuesFactory {
 	public List<String> getSelectValues() {
 		List<String> choices = Lists.newArrayList();
 
-		choices.add("");
-		choices.add("\'");
 		choices.add("\"");
+		choices.add("\'");
 
 		return choices;
 	}

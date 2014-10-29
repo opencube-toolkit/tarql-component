@@ -9,7 +9,7 @@ public class EncodingSelectValueFactory implements SelectValuesFactory {
 	public List<String> getSelectValues() {
 		List<String> choices = Lists.newArrayList();
 
-		choices.add("");
+		choices.add("Autodetect");
 		choices.add("UTF-8");
 		choices.add("UTF-16");
 		choices.add("UTF-16LE");

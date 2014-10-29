@@ -42,25 +42,25 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 				" BIND (URI(CONCAT('http://example.com/ns#', ?d)) AS ?dim2val)\n" +
 				"}";
 
-		@ParameterConfigDoc(desc = "URL of the input CSV file", type=Type.FILEEDITOR)
+		@ParameterConfigDoc(desc = "URL of the input CSV file. Use file:// URLs for local files.", type=Type.FILEEDITOR)
 		public String csvFileLocation;
 
 		@ParameterConfigDoc(
-				desc = "Delimiting character of the CSV file",
+				desc = "Delimiter character of the CSV file",
 				required = false,
 				type = Type.DROPDOWN,
 				selectValuesFactory = DelimiterSelectValueFactory.class)
 		public String delimiter;
 
 		@ParameterConfigDoc(
-				desc = "CSV file encoding",
+				desc = "The CSV file's character encoding",
 				required = false,
 				type = Type.DROPDOWN,
 				selectValuesFactory = EncodingSelectValueFactory.class)
 		public String encoding;
 
 		@ParameterConfigDoc(
-				desc = "Character used to escape quotes in the CSV file",
+				desc = "Character used to escape quotes in the CSV file. If 'None', quote characters are escaped by doubling them.",
 				required = false,
 				type = Type.DROPDOWN,
 				selectValuesFactory = EscapecharSelectValueFactory.class)
@@ -74,7 +74,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		public String quoteChar;		
 
 		@ParameterConfigDoc(
-				desc = "CSV file's first row is a header with variable names",
+				desc = "Is the CSV file's first row a header row with column names?",
 				required = false,
 				type = Type.DROPDOWN,
 				selectValuesFactory = HeaderrowSelectValueFactory.class)

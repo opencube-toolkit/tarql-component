@@ -116,7 +116,7 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		}
 
 		// Escape Char
-		if (StringUtils.isNotBlank(c.escapeChar)) {
+		if (StringUtils.isNotBlank(c.escapeChar) && ( ! c.encoding.equals("None"))) {
 			options.setEscapeChar(c.escapeChar.charAt(0));
 		}
 
@@ -137,13 +137,17 @@ public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 		Iterator<Triple> triples = ex.execTriples();
 
 		ValueFactory factory = new ValueFactoryImpl();
+		
+		int counter = 1;
+
 		while (triples.hasNext()) {
 			Triple t = triples.next();
 			Node n = t.getObject();
 			Statement st;
 
-			System.out.println ( "DEBUG: Triple: " + t );
-			
+			System.out.println ( "DEBUG: Triple (" + counter + "): " + t );
+			counter++;
+
 			if (t.getSubject().isURI()) {
 				if (n.isLiteral()) {
 					// TODO Literals are treated as strings (no datatypes

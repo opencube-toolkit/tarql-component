@@ -21,12 +21,13 @@ import org.openrdf.model.ValueFactory;
 import org.openrdf.model.impl.ValueFactoryImpl;
 
 import com.fluidops.iwb.model.ParameterConfigDoc;
+import com.fluidops.iwb.model.TypeConfigDoc;
 import com.fluidops.iwb.model.ParameterConfigDoc.Type;
 import com.fluidops.iwb.provider.AbstractFlexProvider;
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
 
-
+@TypeConfigDoc("The TARQL Data Provider enables data conversion to RDF from legacy tabular data (such as CSV/TSV files).")
 public class TarqlProvider extends AbstractFlexProvider<TarqlProvider.Config> {
 	private static final long serialVersionUID = 1L;
 
